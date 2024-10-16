@@ -30,7 +30,7 @@ def q_learning(
             else:
                 action = np.argmax(q_values[state, :])
 
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, done, info = env.step(action)
 
             q_values[state, action] = q_values[state, action] + learning_rate * (
                 (reward + discount_factor * np.max(q_values[next_state, :]))

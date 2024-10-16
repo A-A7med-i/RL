@@ -2,11 +2,11 @@ import numpy as np
 
 
 def sarsa_learning(
-        env,
-        num_episodes: int = 1000,
-        exploration_rate: float = 0.2,
-        learning_rate: float = 0.2,
-        discount_factor: float = 0.9,
+    env,
+    num_episodes: int = 1000,
+    exploration_rate: float = 0.2,
+    learning_rate: float = 0.2,
+    discount_factor: float = 0.9,
 ) -> np.ndarray:
     """
     Implements the SARSA algorithm for reinforcement learning.
@@ -30,7 +30,7 @@ def sarsa_learning(
         action = np.random.randint(0, env.action_space.n)
 
         for step in range(99):
-            next_state, reward, done, _ = env.step(action)
+            next_state, reward, done, info = env.step(action)
 
             if np.random.uniform() < exploration_rate:
                 next_action = np.random.randint(0, env.action_space.n)
@@ -38,8 +38,8 @@ def sarsa_learning(
                 next_action = np.argmax(q_values[next_state, :])
 
             q_values[state, action] = q_values[state, action] + learning_rate * (
-                    (reward + discount_factor * q_values[next_state, next_action])
-                    - q_values[state, action]
+                (reward + discount_factor * q_values[next_state, next_action])
+                - q_values[state, action]
             )
             total_reward += reward
 
